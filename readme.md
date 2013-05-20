@@ -10,8 +10,10 @@ The goal is one and only, make tweeter read your new Tweets out aloud as they co
 
 ## TODO in order:
 
-- make page action show in twitter.com
-- make configs not to speak all the time
+- -make page action show in twitter.com-
+- -make configs not to speak all the time, store on localHost-
+- -make responsive checkbox config-
 - make text and screen-shot for Chrome Extensions
 - upload to chrome extensions
-- make viral intro with localStorage
+- make intro offering with localStorage + chrome url
+- activate 1 inactive tab whenever the active die

@@ -1,9 +1,5 @@
 window.TY = {}
 
-# http://developer.chrome.com/extensions/tabs.html#method-getCurrent
-# chrome.tabs.getCurrent ->
-# chrome.pageAction.show()
-
 
 TY.lookForNewMessage = () ->
   console.log "tweet yeller checking..."
@@ -17,6 +13,7 @@ TY.lookForNewMessage = () ->
 TY.collectNewTweets = (lastN) ->
   lastTweets = $(".stream.home-stream .stream-items li.stream-item:lt(#{lastN})")
   collected = []
+  # build a nice readable message
   lastTweets.each (i,el) ->
     msgObj = {}
     jel = $(el)
@@ -35,10 +32,20 @@ TY.transmit = (tweetList) ->
   chrome.runtime.sendMessage {readThose:tweetList}, (response)  ->
     console.log(response.msg)
 
-setInterval TY.lookForNewMessage.bind(TY), 1000
+pnt = setInterval TY.lookForNewMessage.bind(TY), 1000
 
+claimTabLife = () ->
+  chrome.runtime.sendMessage {shoutStatus:true}, (response)  ->
+    console.log "claimTabLife", response
+    if response.msg == 'off'
+      clearInterval pnt
+      console.log "turning off for this tab"
 
 setTimeout ->
   # TY.transmit [{author:"that is me", text: "a very cool one"}]
-  TY.collectNewTweets 3
+  # TY.collectNewTweets 1
+  # debugger
+  1
 , 3000
+
+claimTabLife()
