@@ -1,0 +1,40 @@
+{
+    "name": "tweet-yeller",
+    "version": "0.1.1",
+    "manifest_version": 2,
+    "description": "",
+    "permissions": [
+        "tts",
+        "http://twitter.com/*",
+        "https://twitter.com/*"
+    ],
+    "icons": {
+        "16": "img/icon16.png",
+        "48": "img/icon48.png",
+        "128": "img/icon128.png"
+    },
+    "background": {
+        "scripts": ["js/speaker.js"],
+        "persistent": false
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://twitter.com/"],
+            "css": [
+                "css/yeller.css"
+            ],
+            "js": [
+                "js/libs/jquery.min.js",
+                "js/parser.js"
+            ]
+        }
+    ],
+    "page_action": {
+        "default_icon": {
+            "19": "img/icon19.png",
+            "38": "img/icon38.png"
+        },
+        "default_title" : "Tweet Yeller",
+        "default_popup" : "popup.html"
+    }
+}
