@@ -4,7 +4,9 @@ chrome.runtime.onMessage.addListener (req,sender,res) ->
     chrome.tts.speak(msg, {'enqueue': true})
 
   console.log req
-  say "You got #{req.readThose.length} new tweets,", " "
-  for msg in req.readThose 
+  chrome.tts.speak "You got #{req.readThose.length} new tweets,"
+  for msg,i in req.readThose 
     say(msg.author, msg.text)
+    if i != req.readThose.length - 1
+      chrome.tts.speak('next,' , {'enqueue': true})
   res({msg:"reading or whatever"})

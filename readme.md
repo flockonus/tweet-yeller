@@ -1,9 +1,17 @@
-# hipaw chrome extension
+# tweet yeller
 
-## manifest.json
-This is the equipvalent of package.json, which specify how to bootstrap the extension and various configs
+The goal is one and only, make tweeter read your new Tweets out aloud as they come.
 
-## /coffee && /stylus
-Once you run `make` in the repo's root, Grunt will be started as a background process. Grunt will watch `../coffee` and `/stylus` and auto-compile into ``../package/js` and `/package/css` appropriately.
+## dev mode
 
-Sometime, Grunt process will crash due to unbarable bad syntax in the stylus file you're working on. In that case, you can start grunt again by itself by running `grunt` in `/app`
+- have coffee script installed
+- have make intalled
+- `make`
+
+## TODO in order:
+
+- make page action show in twitter.com
+- make configs not to speak all the time
+- make text and screen-shot for Chrome Extensions
+- upload to chrome extensions
+- make viral intro with localStorage

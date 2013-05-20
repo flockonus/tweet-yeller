@@ -15,13 +15,18 @@ TY.lookForNewMessage = () ->
   
 
 TY.collectNewTweets = (lastN) ->
-  lastTweets = $(".stream.home-stream ol li:lt(#{lastN})")
+  lastTweets = $(".stream.home-stream .stream-items li.stream-item:lt(#{lastN})")
   collected = []
   lastTweets.each (i,el) ->
     msgObj = {}
     jel = $(el)
     msgObj.author = jel.find('.stream-item-header .fullname').text()
-    msgObj.text = jel.find('.tweet-text').text()
+    textEl = jel.find('.tweet-text').clone()
+    textEl.find('a').each (i,a) ->
+      ja = $(a)
+      if ja.is ".twitter-timeline-link"
+        ja.text( "link to " + ja.find(".js-display-url").text().replace(/\..*/g, "") )
+    msgObj.text = textEl.text().replace(/\#/g, 'hashtag ').replace(/\@/g, 'at ')
     collected.push msgObj
   @transmit collected
 
@@ -33,6 +38,7 @@ TY.transmit = (tweetList) ->
 setInterval TY.lookForNewMessage.bind(TY), 1000
 
 
-# setTimeout ->
-#   TY.transmit [{author:"that is me", text: "a very cool one"}]
-# , 3000
+setTimeout ->
+  # TY.transmit [{author:"that is me", text: "a very cool one"}]
+  TY.collectNewTweets 3
+, 3000

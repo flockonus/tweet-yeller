@@ -2,7 +2,7 @@
 (function() {
 
   chrome.runtime.onMessage.addListener(function(req, sender, res) {
-    var msg, say, _i, _len, _ref;
+    var i, msg, say, _i, _len, _ref;
     say = function(author, msg) {
       chrome.tts.speak("" + author + " said", {
         'enqueue': true
@@ -12,11 +12,16 @@
       });
     };
     console.log(req);
-    say("You got " + req.readThose.length + " new tweets,", " ");
+    chrome.tts.speak("You got " + req.readThose.length + " new tweets,");
     _ref = req.readThose;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      msg = _ref[_i];
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      msg = _ref[i];
       say(msg.author, msg.text);
+      if (i !== req.readThose.length - 1) {
+        chrome.tts.speak('next,', {
+          'enqueue': true
+        });
+      }
     }
     return res({
       msg: "reading or whatever"

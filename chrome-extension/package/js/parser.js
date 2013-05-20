@@ -17,14 +17,22 @@
 
   TY.collectNewTweets = function(lastN) {
     var collected, lastTweets;
-    lastTweets = $(".stream.home-stream ol li:lt(" + lastN + ")");
+    lastTweets = $(".stream.home-stream .stream-items li.stream-item:lt(" + lastN + ")");
     collected = [];
     lastTweets.each(function(i, el) {
-      var jel, msgObj;
+      var jel, msgObj, textEl;
       msgObj = {};
       jel = $(el);
       msgObj.author = jel.find('.stream-item-header .fullname').text();
-      msgObj.text = jel.find('.tweet-text').text();
+      textEl = jel.find('.tweet-text').clone();
+      textEl.find('a').each(function(i, a) {
+        var ja;
+        ja = $(a);
+        if (ja.is(".twitter-timeline-link")) {
+          return ja.text("link to " + ja.find(".js-display-url").text().replace(/\..*/g, ""));
+        }
+      });
+      msgObj.text = textEl.text().replace(/\#/g, 'hashtag ').replace(/\@/g, 'at ');
       return collected.push(msgObj);
     });
     return this.transmit(collected);
@@ -40,5 +48,9 @@
   };
 
   setInterval(TY.lookForNewMessage.bind(TY), 1000);
+
+  setTimeout(function() {
+    return TY.collectNewTweets(3);
+  }, 3000);
 
 }).call(this);
