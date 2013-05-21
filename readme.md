@@ -10,6 +10,8 @@ The goal is one and only, make tweeter read your new Tweets out aloud as they co
 
 ## TODO in order:
 
+- ability to cancel read stream, it can drive a man to madness
+- ability to make sound lower, or even mute it
 - -make page action show in twitter.com-
 - -make configs not to speak all the time, store on localHost-
 - -make responsive checkbox config-
